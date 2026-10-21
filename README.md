@@ -1,4 +1,4 @@
-# Neon Rest · Daily Scripture & Quotes in Glass Neon
+# News Dieppe · Daily Scripture & Quotes in Glass Neon
 
 > *"Come to me, all you who are weary and burdened, and I will give you rest."*  
 > — **Matthew 11:28**

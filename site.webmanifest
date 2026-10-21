@@ -1,7 +1,7 @@
 {
-  "name": "Neon Rest — Daily Scripture & Quotes in Glass Neon",
-  "short_name": "Neon Rest",
-  "description": "Come to me, all you who are weary and burdened, and I will give you rest. Animated glass neon scripture and quotes.",
+  "name": "News Dieppe — Daily Scripture & Quotes in Glass Neon",
+  "short_name": "News Dieppe",
+  "description": "Come to me, all you who are weary and burdened, and I will give you rest. Daily scripture and quotes rendered in bent glass neon on News Dieppe.",
   "start_url": "./",
   "scope": "./",
   "id": "./",
@@ -64,21 +64,21 @@
       "sizes": "1280x800",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Neon Rest desktop glass neon verse display"
+      "label": "News Dieppe desktop glass neon verse display"
     },
     {
       "src": "screenshots/screenshot-narrow.png",
       "sizes": "780x1688",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Neon Rest mobile glass neon verse display"
+      "label": "News Dieppe mobile glass neon verse display"
     }
   ],
   "shortcuts": [
     {
       "name": "Next Verse",
       "short_name": "Next Verse",
-      "description": "Display a new neon scripture verse",
+      "description": "Display a new neon scripture verse on News Dieppe",
       "url": "./#shuffle",
       "icons": [
         {

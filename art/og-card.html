@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>News Dieppe — Open Graph Card</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #f0fcf7;
+    text-align: center;
+    background: #070a0d;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 20px;
+  }
+  /* Everything important stays inside the centre 630x630 square (WhatsApp crops to 1:1). */
+  .card {
+    width: 610px;
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+    padding: 24px;
+  }
+  .mark {
+    width: 88px;
+    height: 88px;
+    border-radius: 20px;
+    border: 1px solid #1e3a4c;
+    background: #080b0f;
+    padding: 8px;
+  }
+  .eyebrow {
+    font-size: 16px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #ffcd64;
+    font-weight: 600;
+  }
+  h1 {
+    font-size: 62px;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+    color: #effdff;
+    text-shadow: 0 0 22px rgba(81, 197, 255, 0.45);
+  }
+  h1 span {
+    display: block;
+    color: #ffc2d4;
+    text-shadow: 0 0 22px rgba(255, 117, 156, 0.45);
+  }
+  p {
+    font-size: 24px;
+    line-height: 1.35;
+    color: #b9bfc3;
+    max-width: 540px;
+  }
+  .pill {
+    margin-top: 6px;
+    background: #0d161e;
+    border: 1px solid #2b4c63;
+    color: #b1eeff;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 10px 28px;
+    border-radius: 999px;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+      <rect width="64" height="64" rx="14" fill="#080b0f"/>
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 20h30M32 20v29" stroke="#163c54" stroke-width="10"/>
+        <path d="M17 20h30M32 20v29" stroke="#51c5ff" stroke-width="6.5"/>
+        <path d="M17 20h30M32 20v29" stroke="#b1eeff" stroke-width="3.8"/>
+        <path d="M17 20h30M32 20v29" stroke="#effdff" stroke-width="1.6"/>
+      </g>
+    </svg>
+    <div class="eyebrow">News Dieppe</div>
+    <h1>Come to Me<span>Matthew 11:28</span></h1>
+    <p>Daily scripture &amp; quotes rendered in glowing bent-glass neon.</p>
+    <div class="pill">news.dieppe.app</div>
+  </div>
+</body>
+</html>

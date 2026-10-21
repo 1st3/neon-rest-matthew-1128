@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /verses.json
+
+Sitemap: https://news.dieppe.app/sitemap.xml

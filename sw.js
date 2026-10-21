@@ -1,4 +1,4 @@
-const CACHE_NAME = 'neon-rest-v1';
+const CACHE_NAME = 'news-dieppe-v1';
 const META_SYNC_URL = '/__sw_meta/last_sync';
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 

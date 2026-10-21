@@ -503,7 +503,7 @@ function renderVerseToDom(verse, doc = globalThis.document) {
   const fullText = verse.text || rows.map((r) => r.text).join(' ');
   const refText = verse.reference || 'Matthew 11:28';
   const h1 = doc.querySelector('h1.sr-only');
-  if (h1) h1.textContent = fullText;
+  if (h1) h1.textContent = `${fullText} — ${refText}`;
   const svgTitle = doc.querySelector('#neon-title');
   if (svgTitle) svgTitle.textContent = fullText;
   const refEl = doc.querySelector('.reference');
@@ -511,7 +511,7 @@ function renderVerseToDom(verse, doc = globalThis.document) {
     refEl.textContent = refText;
     refEl.setAttribute('data-verse-id', verse.id || 'custom');
   }
-  doc.title = `${refText} · Neon Rest`;
+  doc.title = `Come to Me (${refText}): Glass Neon Verse | News Dieppe`;
 
   return { verse, rows };
 }
