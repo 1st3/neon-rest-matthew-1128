@@ -1,0 +1,16 @@
+{
+  "name": "neon-rest-matthew-1128",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Animated vector glass neon scripture and quotes PWA with offline support and weekly Service Worker sync.",
+  "scripts": {
+    "test": "node --test",
+    "icons": "python3 art/make_icons.py",
+    "screenshots": "node scripts/capture-screenshots.mjs",
+    "verify-manifest": "node scripts/verify-manifest.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

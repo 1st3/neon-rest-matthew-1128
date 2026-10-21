@@ -1,0 +1,92 @@
+{
+  "name": "Neon Rest — Daily Scripture & Quotes in Glass Neon",
+  "short_name": "Neon Rest",
+  "description": "Come to me, all you who are weary and burdened, and I will give you rest. Animated glass neon scripture and quotes.",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "background_color": "#070a0d",
+  "theme_color": "#080b0f",
+  "dir": "ltr",
+  "lang": "en",
+  "categories": ["lifestyle", "books", "education"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/screenshot-wide.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Neon Rest desktop glass neon verse display"
+    },
+    {
+      "src": "screenshots/screenshot-narrow.png",
+      "sizes": "780x1688",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Neon Rest mobile glass neon verse display"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Next Verse",
+      "short_name": "Next Verse",
+      "description": "Display a new neon scripture verse",
+      "url": "./#shuffle",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

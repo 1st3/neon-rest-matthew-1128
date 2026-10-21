@@ -1,0 +1,163 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-10-21T00:00:00Z",
+  "syncIntervalDays": 7,
+  "verses": [
+    {
+      "id": "matthew-11-28",
+      "reference": "Matthew 11:28",
+      "text": "Come to me, all you who are weary and burdened, and I will give you rest.",
+      "lines": [
+        { "text": "COME TO ME,", "width": 606, "color": "amber" },
+        { "text": "ALL YOU WHO", "width": 557, "color": "blue" },
+        { "text": "ARE WEARY", "width": 495, "color": "blue" },
+        { "text": "AND BURDENED,", "width": 596, "color": "white" },
+        { "text": "AND I WILL", "width": 555, "color": "rose" },
+        { "text": "GIVE YOU REST.", "width": 580, "color": "rose" }
+      ]
+    },
+    {
+      "id": "psalm-23-1-3",
+      "reference": "Psalm 23:1-3",
+      "text": "The Lord is my shepherd, I lack nothing. He refreshes my soul.",
+      "lines": [
+        { "text": "THE LORD IS", "width": 560, "color": "amber" },
+        { "text": "MY SHEPHERD,", "width": 590, "color": "amber" },
+        { "text": "I LACK NOTHING.", "width": 575, "color": "white" },
+        { "text": "HE QUIETS ME,", "width": 540, "color": "blue" },
+        { "text": "HE REFRESHES", "width": 565, "color": "rose" },
+        { "text": "MY SOUL.", "width": 460, "color": "rose" }
+      ]
+    },
+    {
+      "id": "john-14-27",
+      "reference": "John 14:27",
+      "text": "Peace I leave with you; my peace I give you. Do not let your hearts be troubled.",
+      "lines": [
+        { "text": "PEACE I LEAVE", "width": 580, "color": "amber" },
+        { "text": "WITH YOU;", "width": 480, "color": "blue" },
+        { "text": "MY PEACE", "width": 470, "color": "blue" },
+        { "text": "I GIVE YOU.", "width": 510, "color": "white" },
+        { "text": "DO NOT BE", "width": 490, "color": "rose" },
+        { "text": "AFRAID.", "width": 440, "color": "rose" }
+      ]
+    },
+    {
+      "id": "isaiah-40-31",
+      "reference": "Isaiah 40:31",
+      "text": "Those who hope in the Lord will renew their strength. They will soar on wings like eagles.",
+      "lines": [
+        { "text": "THOSE WHO HOPE", "width": 600, "color": "amber" },
+        { "text": "IN THE LORD", "width": 535, "color": "blue" },
+        { "text": "WILL RENEW", "width": 525, "color": "blue" },
+        { "text": "THEIR STRENGTH.", "width": 605, "color": "white" },
+        { "text": "THEY WILL SOAR", "width": 575, "color": "rose" },
+        { "text": "LIKE EAGLES.", "width": 545, "color": "rose" }
+      ]
+    },
+    {
+      "id": "psalm-46-10",
+      "reference": "Psalm 46:10",
+      "text": "Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth.",
+      "lines": [
+        { "text": "BE STILL,", "width": 490, "color": "amber" },
+        { "text": "AND KNOW", "width": 495, "color": "amber" },
+        { "text": "THAT I AM GOD;", "width": 585, "color": "white" },
+        { "text": "I WILL BE", "width": 485, "color": "blue" },
+        { "text": "EXALTED IN", "width": 535, "color": "rose" },
+        { "text": "THE EARTH.", "width": 525, "color": "rose" }
+      ]
+    },
+    {
+      "id": "philippians-4-6-7",
+      "reference": "Philippians 4:6-7",
+      "text": "Do not be anxious about anything, and the peace of God will guard your hearts and your minds.",
+      "lines": [
+        { "text": "BE ANXIOUS", "width": 530, "color": "amber" },
+        { "text": "FOR NOTHING,", "width": 565, "color": "blue" },
+        { "text": "AND THE PEACE", "width": 585, "color": "blue" },
+        { "text": "OF GOD WILL", "width": 545, "color": "white" },
+        { "text": "GUARD YOUR", "width": 540, "color": "rose" },
+        { "text": "HEARTS.", "width": 450, "color": "rose" }
+      ]
+    },
+    {
+      "id": "lamentations-3-22-23",
+      "reference": "Lamentations 3:22-23",
+      "text": "Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning.",
+      "lines": [
+        { "text": "HIS MERCIES", "width": 545, "color": "amber" },
+        { "text": "NEVER COME", "width": 545, "color": "blue" },
+        { "text": "TO AN END;", "width": 510, "color": "blue" },
+        { "text": "THEY ARE NEW", "width": 570, "color": "white" },
+        { "text": "EVERY MORNING,", "width": 595, "color": "rose" },
+        { "text": "GREAT IS THY FAITH.", "width": 605, "color": "rose" }
+      ]
+    },
+    {
+      "id": "joshua-1-9",
+      "reference": "Joshua 1:9",
+      "text": "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
+      "lines": [
+        { "text": "BE STRONG AND", "width": 580, "color": "amber" },
+        { "text": "COURAGEOUS.", "width": 555, "color": "amber" },
+        { "text": "DO NOT FEAR;", "width": 540, "color": "white" },
+        { "text": "THE LORD YOUR", "width": 585, "color": "blue" },
+        { "text": "GOD IS WITH YOU", "width": 595, "color": "rose" },
+        { "text": "WHEREVER YOU GO.", "width": 605, "color": "rose" }
+      ]
+    },
+    {
+      "id": "proverbs-3-5-6",
+      "reference": "Proverbs 3:5-6",
+      "text": "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",
+      "lines": [
+        { "text": "TRUST IN THE", "width": 555, "color": "amber" },
+        { "text": "LORD WITH ALL", "width": 580, "color": "blue" },
+        { "text": "YOUR HEART;", "width": 535, "color": "blue" },
+        { "text": "LEAN NOT ON", "width": 545, "color": "white" },
+        { "text": "YOUR OWN WAYS,", "width": 590, "color": "rose" },
+        { "text": "HE WILL GUIDE YOU.", "width": 600, "color": "rose" }
+      ]
+    },
+    {
+      "id": "romans-8-38-39",
+      "reference": "Romans 8:38-39",
+      "text": "Neither death nor life, neither present nor future, will be able to separate us from the love of God.",
+      "lines": [
+        { "text": "NEITHER DEATH", "width": 585, "color": "amber" },
+        { "text": "NOR LIFE,", "width": 470, "color": "blue" },
+        { "text": "NOR THINGS", "width": 520, "color": "blue" },
+        { "text": "TO COME, CAN", "width": 560, "color": "white" },
+        { "text": "SEPARATE US FROM", "width": 605, "color": "rose" },
+        { "text": "THE LOVE OF GOD.", "width": 590, "color": "rose" }
+      ]
+    },
+    {
+      "id": "matthew-5-14",
+      "reference": "Matthew 5:14-16",
+      "text": "You are the light of the world. A town built on a hill cannot be hidden. Let your light shine before others.",
+      "lines": [
+        { "text": "YOU ARE THE", "width": 545, "color": "amber" },
+        { "text": "LIGHT OF", "width": 465, "color": "amber" },
+        { "text": "THE WORLD.", "width": 520, "color": "white" },
+        { "text": "A CITY ON A HILL", "width": 595, "color": "blue" },
+        { "text": "CANNOT HIDE;", "width": 555, "color": "rose" },
+        { "text": "LET IT SHINE.", "width": 545, "color": "rose" }
+      ]
+    },
+    {
+      "id": "psalm-121-1-2",
+      "reference": "Psalm 121:1-2",
+      "text": "I lift up my eyes to the mountains—where does my help come from? My help comes from the Lord, the Maker of heaven and earth.",
+      "lines": [
+        { "text": "I LIFT UP MY", "width": 540, "color": "amber" },
+        { "text": "EYES TO THE HILLS.", "width": 605, "color": "blue" },
+        { "text": "WHERE DOES MY", "width": 585, "color": "blue" },
+        { "text": "HELP COME FROM?", "width": 595, "color": "white" },
+        { "text": "FROM THE LORD,", "width": 575, "color": "rose" },
+        { "text": "MAKER OF HEAVEN.", "width": 600, "color": "rose" }
+      ]
+    }
+  ]
+}
