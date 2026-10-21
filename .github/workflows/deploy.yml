@@ -1,0 +1,28 @@
+name: Deploy to RV415
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-news-dieppe-app
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to RV415
+    runs-on: [self-hosted, rv415, 1st3]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy files to rv415 web directory
+        run: |
+          mkdir -p /home/ds/sites/news.dieppe.app
+          rsync -av --delete --exclude='.git*' --exclude='.github*' ./ /home/ds/sites/news.dieppe.app/
+          chmod -R o+rX /home/ds/sites/news.dieppe.app
+
+      - name: Verify local Nginx serving
+        run: |
+          curl -f -sI -H "Host: news.dieppe.app" http://127.0.0.1:80/ | head -n 5
