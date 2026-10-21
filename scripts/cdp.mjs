@@ -31,9 +31,10 @@ export async function withChrome(run) {
     'about:blank',
   ], { stdio: 'ignore' });
 
+  let ws;
   try {
     const tabs = await waitForJson(`http://127.0.0.1:${port}/json`);
-    const ws = new WebSocket(tabs.find((tab) => tab.type === 'page').webSocketDebuggerUrl);
+    ws = new WebSocket(tabs.find((tab) => tab.type === 'page').webSocketDebuggerUrl);
     await new Promise((resolve, reject) => {
       ws.onopen = resolve;
       ws.onerror = reject;
@@ -83,7 +84,8 @@ export async function withChrome(run) {
     await send('Page.enable');
     return await run({ send, navigate });
   } finally {
-    chrome.kill();
+    try { ws?.close(); } catch {}
+    chrome.kill('SIGKILL');
     await rm(profile, { recursive: true, force: true }).catch(() => {});
   }
 }

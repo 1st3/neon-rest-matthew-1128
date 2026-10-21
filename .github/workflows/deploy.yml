@@ -41,3 +41,13 @@ jobs:
           curl -f -sI -H "Host: news.dieppe.app" http://127.0.0.1:80/site.webmanifest | grep -i "application/manifest+json"
           curl -f -sI -H "Host: news.dieppe.app" http://127.0.0.1:80/sw.js | head -n 5
           curl -f -sI -H "Host: news.dieppe.app" http://127.0.0.1:80/verses.json | head -n 5
+
+      - name: Purge Cloudflare edge cache
+        run: |
+          if [ -f /home/ds/dev/.cloudflare_global_email ] && [ -f /home/ds/dev/.cloudflare_global_token ]; then
+            curl -f -s -X POST "https://api.cloudflare.com/client/v4/zones/4f9661d0cf0ed7b9a3a24a0306abc573/purge_cache" \
+              -H "X-Auth-Email: $(cat /home/ds/dev/.cloudflare_global_email)" \
+              -H "X-Auth-Key: $(cat /home/ds/dev/.cloudflare_global_token)" \
+              -H "Content-Type: application/json" \
+              --data '{"files":["https://news.dieppe.app/","https://news.dieppe.app/index.html","https://news.dieppe.app/neon.js","https://news.dieppe.app/styles.css","https://news.dieppe.app/sw.js","https://news.dieppe.app/verses.json","https://news.dieppe.app/site.webmanifest","https://news.dieppe.app/manifest.webmanifest"]}'
+          fi
