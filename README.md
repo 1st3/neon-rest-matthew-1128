@@ -7,6 +7,8 @@ A pure SVG, CSS, and vanilla JavaScript animated neon typography art piece. Ambe
 
 Originally designed and hosted on ChatGPT Sites (`neon-rest-matthew-1128`).
 
+**Live Demo**: [https://w3b3.github.io/neon-rest-matthew-1128/](https://w3b3.github.io/neon-rest-matthew-1128/)
+
 ## Highlights
 
 - **Pure Vector Centerline Lettering**: Custom single-stroke glyph geometry (`neon.js`) tracing the true centerline of bent glass neon tubes. No fonts, bitmap canvases, or photos are used for the letters.
