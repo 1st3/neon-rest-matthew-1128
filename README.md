@@ -7,7 +7,8 @@ A pure SVG, CSS, and vanilla JavaScript animated neon typography art piece. Ambe
 
 Originally designed and hosted on ChatGPT Sites (`neon-rest-matthew-1128`).
 
-**Live Demo**: [https://1st3.github.io/neon-rest-matthew-1128/](https://1st3.github.io/neon-rest-matthew-1128/)
+- **Production Live**: [https://news.dieppe.app/](https://news.dieppe.app/)
+- **GitHub Pages**: [https://1st3.github.io/neon-rest-matthew-1128/](https://1st3.github.io/neon-rest-matthew-1128/)
 
 ## Highlights
 
