@@ -35,3 +35,9 @@ npm run verify-manifest
 ## License
 
 MIT
+
+## UTM traffic capture (rv415)
+
+Email-signature links carry `?utm_source=sig&utm_medium=email`. nginx on rv415 writes one JSON line per tagged page hit to `/var/log/nginx/utm-traffic.json` (no IP addresses). The config is `ops/rv415-utm-traffic.conf`, installed as `/etc/nginx/conf.d/00-utm-traffic.conf`. This site has no `access_log` of its own, so it inherits the shared one. `ops/` is not deployed to the web root.
+
+Note: `sw.js` serves pages cache-first with `ignoreSearch`, so a visitor who opened the installed PWA from cache may not reach nginx and will not be logged.
