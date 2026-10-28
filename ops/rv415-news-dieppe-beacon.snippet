@@ -1,0 +1,9 @@
+# Visit report from the service worker (sw.js). Add inside the news.dieppe.app server block
+# of /etc/nginx/conf.d/sites.conf. Answers 204 with no body and is never cached.
+# A plain 404 is NOT logged: error_page 404 redirects to /404.html and drops the query string,
+# so $arg_utm_source is empty and the utm_hit map skips the line. Returning 204 keeps the args.
+# The server block has no access_log of its own, so it inherits the shared utm_traffic log.
+    location = /_t {
+        add_header Cache-Control "no-store" always;
+        return 204;
+    }
