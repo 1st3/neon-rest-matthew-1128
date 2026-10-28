@@ -1,0 +1,34 @@
+# News Dieppe
+
+> Daily scripture and uplifting reflections rendered in handcrafted, animated single-stroke glass neon typography.
+
+News Dieppe (https://news.dieppe.app/) is a minimalist, privacy-first Progressive Web App (PWA) displaying daily scripture verses and contemplative quotes rendered as realistic bent glass neon tubes. Each letter is dynamically constructed from single-stroke centerline vector glyphs in pure SVG and animated with hardware-accelerated CSS glows.
+
+The application functions completely offline via Service Worker, rotates quotes per refresh from an offline catalog, and performs zero third-party tracking or data harvesting. It is designed for serene daily reflection, creative coding study, and ambient desktop or wall displays.
+
+## Key Features
+- **Pure Vector Neon Typography**: Centerline glyph geometry (A–Z, 0–9, punctuation) tracing the physical bending radius of real glass neon tubing. No bitmap fonts, canvases, or pre-rendered images are used for lettering.
+- **Physical Neon Realism**: Multi-layered SVG filters (`feGaussianBlur`), ceramic electrode boots, metal support standoffs, and looping return wires simulated in code across amber, blue, white, and rose gas spectrums.
+- **Offline-First PWA**: Installable on iOS, Android, macOS, Windows, and Linux. Precaches all assets via Service Worker (`sw.js`) with weekly verse catalog synchronization (`verses.json`).
+- **Interactive Verse Rotation**: Automatically rotates to a fresh quote on each page load, by clicking the verse reference, using the `#shuffle` URL hash, or pressing keyboard shortcuts (`Space` or `N`).
+- **Zero Dependencies**: Pure HTML5, SVG, CSS3, and vanilla modern JavaScript with no external frameworks or runtime libraries.
+
+## Target Audience
+- Individuals seeking quiet daily scripture, mindfulness, and reflective meditation.
+- Designers, creative technologists, and typography enthusiasts interested in SVG vector craft and neon light simulation.
+- Users looking for an ultra-fast, lightweight web application that operates reliably on slow connections or completely offline.
+
+## Pricing & Open Source License
+- **100% Free**: No subscription fees, no in-app purchases, no payment processing, and no hidden tiers.
+- **No Account Required**: Immediate access with zero signups or registration.
+- **MIT License**: Open source code available on GitHub (https://github.com/1st3/neon-rest-matthew-1128).
+
+## Privacy & Accessibility
+- **Zero Tracking**: No cookies, no third-party tracking pixels, and no analytics fingerprinting.
+- **Accessibility (WCAG 2.2)**: Screen reader announcements (`aria-live`), semantic landmarks, full keyboard navigation, tap target compliance, and `prefers-reduced-motion` animation suppression.
+
+## Official Links
+- [News Dieppe Web App](https://news.dieppe.app/): Main live application.
+- [Full LLM Specification](https://news.dieppe.app/llms-full.txt): Comprehensive technical architecture, FAQ, and typography reference.
+- [GitHub Repository](https://github.com/1st3/neon-rest-matthew-1128): Open-source source code and issue tracker.
+- [Sitemap](https://news.dieppe.app/sitemap.xml): Machine-readable XML sitemap.

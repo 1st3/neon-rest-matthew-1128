@@ -1,0 +1,146 @@
+# News Dieppe: Complete Technical Reference & Generative Engine Specification
+
+> Daily scripture and uplifting reflections rendered in handcrafted, animated single-stroke glass neon typography.
+
+- **Canonical URL**: https://news.dieppe.app/
+- **Repository**: https://github.com/1st3/neon-rest-matthew-1128
+- **License**: MIT License
+- **Version**: 1.2.0 (PWA)
+- **Primary Keyword**: Glass Neon Verse, Daily Scripture PWA, SVG Neon Typography
+
+---
+
+## 1. Product Overview & Core Philosophy
+
+News Dieppe is an open-source, zero-dependency Progressive Web App (PWA) that presents daily scripture and contemplative quotations as luminous, realistic glass neon signs. 
+
+Unlike conventional typographic web applications that render text using TrueType/WOFF font files or raster canvas bitmaps, News Dieppe constructs every character using custom single-stroke centerline vector geometry in pure SVG. Each glyph reproduces the physical bending radii, electrode connections, wire returns, and layered gas glows of authentic bent glass tubing mounted to a textured backdrop.
+
+### Guiding Principles
+1. **Purity of Craft**: No typography libraries, no canvas bitmaps, and no pre-rendered lettering. Every path represents the exact centerline of a hot glass tube.
+2. **Instant Offline Availability**: Precaches all shell assets through a modern Service Worker, requiring zero network roundtrips after initial install.
+3. **Calm & Contemplative Design**: Subtle physical neon warm-up flicker, organic tube current variations, and automatic suppression under `prefers-reduced-motion`.
+4. **Absolute Privacy**: Zero telemetry tracking, no analytics cookies, no user registration, and zero third-party scripts.
+5. **Universal Accessibility**: Conforming to WCAG 2.2 Level AA guidelines, with screen reader live announcements, full keyboard accessibility, skip links, and semantic fallbacks.
+
+---
+
+## 2. Technical Architecture & Typography Engine
+
+### 2.1 Single-Stroke Centerline Vector Geometry
+Neon tubes cannot render filled shapes or sharp interior angles without glass fracturing. News Dieppe's custom vector engine (`neon.js`) defines each letter as a continuous or minimal-segment SVG path:
+
+- **Glyph Set**: Complete uppercase Latin alphabet (`A–Z`), Arabic numerals (`0–9`), and punctuation (`.`, `,`, `:`, `;`, `'`, `-`, `?`, `!`).
+- **Stroke Width**: Normalized to 9 units on a 720×680 viewBox, maintaining an aspect ratio typical of 12mm–15mm neon tube glass.
+- **Join & Cap**: `stroke-linecap: round; stroke-linejoin: round;` ensuring organic glass curves at every junction.
+- **Physical Tube Mounting Standoffs**: Automatically placed acrylic clip brackets (`mountX` mapping) and electrode boots that physically ground each letter to the backboard.
+- **Return Wiring**: Dark insulated copper return wire paths generated dynamically beneath the glass tubes with metallic linear gradients (`#wire` and `#metal`).
+
+### 2.2 Realistic Gas Glow Filter Pipeline
+The light emitted by gas-discharge tubes is simulated using hardware-accelerated SVG filter primitives:
+
+1. **Gas Core**: Crisp white/pale tint stroke (`stroke-width: 2.2`) representing high-density ionized plasma at the tube core.
+2. **Inner Gas Ionization**: Vibrant saturated stroke (`stroke-width: 6.0`) with color corresponding to the gas mixture (neon, argon-mercury, or phosphor coating).
+3. **Glass Tube Rim**: Semi-translucent casing stroke reflecting ambient darkness (`stroke-width: 9.0`).
+4. **Halo Glow (`#halo`)**: `feGaussianBlur` filter (`stdDeviation="3.2"`) producing immediate optical bloom around the tube envelope.
+5. **Backdrop Spill (`#spill`)**: Wide `feGaussianBlur` filter (`stdDeviation="18"`) with `mix-blend-mode: screen` casting colored light across the textured fabric backing.
+6. **Contact Shadow (`#contact-shadow`)**: Directional drop shadow (`stdDeviation="1.4"`) simulating distance between the standoffs and the backdrop.
+
+### 2.3 Gas Spectroscopy & Color Palettes
+Four authentic neon sign colors are modeled:
+- **Amber Glow** (Neon gas + amber tint): Dark `#6a3815`, Rim `#bd7b26`, Glass `#ffcd64`, Gas `#fff0b3`, Core `#fffde1`.
+- **Daylight Blue** (Argon-mercury gas): Dark `#163c54`, Rim `#367692`, Glass `#51c5ff`, Gas `#b1eeff`, Core `#effdff`.
+- **Warm White** (Argon-mercury + tri-phosphor): Dark `#354446`, Rim `#82918d`, Glass `#c5e1e1`, Gas `#f0fcf7`, Core `#ffffff`.
+- **Deep Rose** (Neon gas + pink phosphor): Dark `#673241`, Rim `#bd657b`, Glass `#ff759c`, Gas `#ffc2d4`, Core `#fff4f6`.
+
+---
+
+## 3. Offline Architecture & Service Worker Lifecycle
+
+### 3.1 Caching Strategy
+The Service Worker (`sw.js`) employs a **Cache-First (Stale-While-Revalidate with Weekly Synchronization)** strategy:
+- **Precaching**: The complete app shell (`index.html`, `styles.css`, `neon.js`, `verses.json`, `blank-shirt.png`, vector and raster icons, and manifests) is cached during the `install` phase.
+- **Navigation Fallback**: If network is unavailable, navigation requests instantly resolve to the cached shell.
+- **Offline Catalog**: Verses are stored in client-side `localStorage` (`neon_verses_catalog`), guaranteeing full functionality when completely disconnected.
+
+### 3.2 Weekly Synchronization Policy
+To prevent bandwidth waste and respect mobile data plans:
+- Background verse sync (`verses.json`) occurs at most once every 7 days (`WEEK_MS = 604,800,000 ms`).
+- Uses the W3C Periodic Background Sync API (`weekly-verse-sync`) when supported by the host browser.
+- When an update arrives, `sw.js` broadcasts a `VERSES_UPDATED` message to open windows to update client storage without interrupting the reading experience.
+
+---
+
+## 4. Accessibility & Inclusive Design (WCAG 2.2 AA)
+
+News Dieppe is engineered to ensure beautiful visual art does not compromise accessibility:
+
+1. **Screen Reader Support**:
+   - Primary `<h1>` tag carries the full text of the currently displayed verse and reference.
+   - SVG element includes `<title>` and `<desc>` elements linked via `aria-labelledby="neon-title neon-desc"`.
+   - Dedicated `aria-live="polite"` live region (`#verse-announcer`) announces new verses when rotated, without interrupting active reading.
+2. **Keyboard Navigation**:
+   - Interactive verse reference is a native `<button>` element with visible high-contrast focus rings (`:focus-visible`).
+   - Global keyboard shortcuts: `Space` or `N` advances to the next verse.
+   - Skip link (`Skip to daily verse`) permits rapid navigation for keyboard and switch device users.
+3. **Motion Sensitivity (`prefers-reduced-motion: reduce`)**:
+   - Keyframe animations (`warm-up` flicker and `current` ripple) are completely disabled when users request reduced motion.
+4. **Touch & Mobile Targets**:
+   - Interactive elements exceed the 44×44 CSS pixel minimum touch target requirement.
+
+---
+
+## 5. Frequently Asked Questions (FAQ)
+
+### What is News Dieppe?
+News Dieppe is an open-source, privacy-first Progressive Web App that renders daily scripture and contemplative quotations as realistic bent glass neon signs using pure SVG and CSS.
+
+### How does the neon typography work without fonts?
+Every letter is hand-coded as a single-stroke centerline vector path tracing the bending radius of physical glass tubes. No font files, raster images, or canvas drawings are used. The glowing effects are produced by layered SVG filters and CSS keyframe animations.
+
+### Is News Dieppe free to use?
+Yes, 100% free. There are no subscriptions, no in-app purchases, no advertisements, and no registration required. The source code is freely available under the MIT license.
+
+### Can News Dieppe work completely offline?
+Yes. News Dieppe is a fully installable PWA. All assets (code, images, icons, and verses) are cached locally by the Service Worker, allowing the app to launch and cycle quotes without an internet connection.
+
+### How do I cycle or shuffle verses?
+You can advance to a new quote by clicking or tapping the verse reference button at the bottom of the screen, pressing the `Spacebar` or `N` key on a keyboard, or appending `#shuffle` to the URL.
+
+### Does News Dieppe collect personal data or cookies?
+No. News Dieppe sets no tracking cookies, runs no advertising scripts, collects no personal telemetry, and does not sell or share any user information.
+
+### What browsers and devices are supported?
+News Dieppe runs on all modern browsers (Chrome, Safari, Firefox, Edge, Brave) across iOS, Android, macOS, Windows, Linux, and ChromeOS. It can be installed directly to the home screen or desktop.
+
+---
+
+## 6. Zero-Contradiction Verification Matrix
+
+| Property | Value | Document Consistency |
+|---|---|---|
+| **Price** | $0.00 (Free) | Matches `index.html`, JSON-LD `PriceSpecification`, `llms.txt`, and `README.md` |
+| **Payment Required** | None | 100% identical across all documentation |
+| **Account Required** | None | Instant access across all entry points |
+| **License** | MIT License | Consistent in `package.json`, `README.md`, and manifests |
+| **App Name** | News Dieppe | Verified across all metadata and UI |
+| **Canonical Domain**| `https://news.dieppe.app/` | Matches canonical, sitemap, Open Graph, and JSON-LD |
+
+---
+
+## 7. Automated Audit & Verification Recipes
+
+### cURL Raw HTML & Header Check
+```bash
+# Verify headers for llms.txt
+curl -sI https://news.dieppe.app/llms.txt | grep -E -i 'content-type|cache-control'
+
+# Verify pre-rendered semantic HTML contains FAQ and landmarks without JS
+curl -s https://news.dieppe.app/ | grep -E 'application/ld\+json|<h1|<details|<main'
+```
+
+### Local Test Execution
+```bash
+# Run unit, SEO, accessibility, and manifest test suite
+npm test
+```

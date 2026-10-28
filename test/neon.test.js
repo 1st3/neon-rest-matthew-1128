@@ -18,6 +18,7 @@ const {
   saveCatalog,
   selectNextVerse,
   syncFromBackendIfDue,
+  captureAiReferral,
 } = globalThis.NeonEngine;
 
 function createMockStorage() {
@@ -135,4 +136,15 @@ test('weekly sync policy only fetches from backend when 7 days have elapsed', as
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test('captureAiReferral detects and normalizes AI search engine referrers', () => {
+  assert.equal(captureAiReferral('https://chatgpt.com/'), 'chatgpt.com');
+  assert.equal(captureAiReferral('https://www.perplexity.ai/search?q=news+dieppe'), 'perplexity.ai');
+  assert.equal(captureAiReferral('https://claude.ai/chat/123'), 'claude.ai');
+  assert.equal(captureAiReferral('https://search.brave.com/search?q=glass+neon'), 'search.brave.com');
+  assert.equal(captureAiReferral('android-app://com.openai.chatgpt'), 'chatgpt-app');
+  assert.equal(captureAiReferral('https://example.com/'), null);
+  assert.equal(captureAiReferral(''), null);
+  assert.equal(captureAiReferral(null), null);
 });

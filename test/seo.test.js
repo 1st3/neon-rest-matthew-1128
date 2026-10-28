@@ -35,6 +35,8 @@ test('Platform name is News Dieppe everywhere (never Neon Rest)', async () => {
     'neon.js',
     'sw.js',
     'README.md',
+    'llms.txt',
+    'llms-full.txt',
   ];
   for (const rel of filesToCheck) {
     const content = await readFile(join(ROOT, rel), 'utf8');
@@ -128,12 +130,32 @@ test('JSON-LD is valid, matches visible content, and uses a single applicationCa
   assert.ok(raw, 'missing JSON-LD block');
   const ld = JSON.parse(raw);
   assert.equal(ld['@context'], 'https://schema.org');
-  assert.equal(ld['@type'], 'WebApplication');
-  assert.equal(ld.name, PLATFORM_NAME);
-  assert.equal(ld.url, `${SITE}/`);
-  assert.equal(ld.image, `${SITE}/og-image.png`);
-  assert.equal(typeof ld.applicationCategory, 'string');
-  assert.equal(ld.offers.price, '0');
+
+  const app = ld['@graph'] ? ld['@graph'].find((e) => e['@type'] === 'WebApplication') : ld;
+  assert.ok(app, 'missing WebApplication entity');
+  assert.equal(app['@type'], 'WebApplication');
+  assert.equal(app.name, PLATFORM_NAME);
+  assert.equal(app.url, `${SITE}/`);
+  assert.equal(app.image, `${SITE}/og-image.png`);
+  assert.equal(typeof app.applicationCategory, 'string');
+  assert.equal(app.offers.price, '0');
+
+  if (ld['@graph']) {
+    const org = ld['@graph'].find((e) => e['@type'] === 'Organization');
+    assert.ok(org, 'missing Organization in JSON-LD @graph');
+    assert.equal(org.name, PLATFORM_NAME);
+    assert.equal(org.url, `${SITE}/`);
+
+    const faq = ld['@graph'].find((e) => e['@type'] === 'FAQPage');
+    assert.ok(faq, 'missing FAQPage in JSON-LD @graph');
+    assert.ok(Array.isArray(faq.mainEntity) && faq.mainEntity.length >= 4);
+    for (const item of faq.mainEntity) {
+      assert.equal(item['@type'], 'Question');
+      assert.ok(item.name && item.name.length > 5);
+      assert.equal(item.acceptedAnswer['@type'], 'Answer');
+      assert.ok(item.acceptedAnswer.text && item.acceptedAnswer.text.length > 10);
+    }
+  }
 });
 
 test('Semantic landmarks: exactly one <h1>, <main>, and crawlable quote copy in initial HTML', () => {
@@ -155,10 +177,73 @@ test('robots.txt, sitemap.xml, and 404.html are present and well-formed', async 
   assert.match(robots, /^Disallow:\s*\/verses\.json$/m);
   assert.match(robots, new RegExp(`^Sitemap:\\s*${SITE}/sitemap\\.xml$`, 'm'));
 
+  // Ensure major AI search & training bots are explicitly granted access
+  const expectedAiBots = [
+    'GPTBot',
+    'ChatGPT-User',
+    'PerplexityBot',
+    'ClaudeBot',
+    'anthropic-ai',
+    'Google-Extended',
+    'Applebot-Extended',
+  ];
+  for (const bot of expectedAiBots) {
+    assert.match(
+      robots,
+      new RegExp(`User-agent:\\s*${bot}\\s*\\nAllow:\\s*\\/`, 'm'),
+      `robots.txt missing explicit allow directive for ${bot}`
+    );
+  }
+
   const sitemap = await readFile(join(ROOT, 'sitemap.xml'), 'utf8');
   assert.match(sitemap, new RegExp(`<loc>${SITE}/</loc>`));
+  assert.match(sitemap, new RegExp(`<loc>${SITE}/llms\\.txt</loc>`));
+  assert.match(sitemap, new RegExp(`<loc>${SITE}/llms-full\\.txt</loc>`));
 
   const notFound = await readFile(join(ROOT, '404.html'), 'utf8');
   assert.match(notFound, /<meta\s+name="robots"\s+content="noindex,\s*nofollow"\s*\/?>/i);
   assert.match(notFound, /News Dieppe/);
+});
+
+test('llms.txt and llms-full.txt exist, match GEO standards, and adhere to size targets', async () => {
+  const llms = await readFile(join(ROOT, 'llms.txt'), 'utf8');
+  const llmsBytes = Buffer.byteLength(llms, 'utf8');
+  assert.ok(
+    llmsBytes >= 1500 && llmsBytes <= 5000,
+    `llms.txt size ${llmsBytes} bytes outside expected 1.5KB-5KB range`
+  );
+  assert.match(llms, /^# News Dieppe/m);
+  assert.match(llms, /## Key Features/i);
+  assert.match(llms, /## Target Audience/i);
+  assert.match(llms, /## Pricing/i);
+  assert.match(llms, /## Privacy/i);
+  assert.match(llms, /## Official Links/i);
+  assert.match(llms, /https:\/\/news\.dieppe\.app\//);
+  assert.match(llms, /https:\/\/news\.dieppe\.app\/llms-full\.txt/);
+
+  const llmsFull = await readFile(join(ROOT, 'llms-full.txt'), 'utf8');
+  const fullBytes = Buffer.byteLength(llmsFull, 'utf8');
+  assert.ok(
+    fullBytes >= 6000 && fullBytes <= 26000,
+    `llms-full.txt size ${fullBytes} bytes outside expected 6KB-26KB range`
+  );
+  assert.match(llmsFull, /^# News Dieppe/m);
+  assert.match(llmsFull, /## 1\. Product Overview/i);
+  assert.match(llmsFull, /## 2\. Technical Architecture/i);
+  assert.match(llmsFull, /## 3\. Offline Architecture/i);
+  assert.match(llmsFull, /## 4\. Accessibility/i);
+  assert.match(llmsFull, /## 5\. Frequently Asked Questions/i);
+  assert.match(llmsFull, /## 6\. Zero-Contradiction/i);
+});
+
+test('Accessibility & reachability features are wired in initial HTML', () => {
+  assert.match(html, /<a\s+href="#main-content"\s+class="skip-link">Skip to daily verse<\/a>/i);
+  assert.match(html, /<main\s+id="main-content"\s+class="scene"/i);
+  assert.match(html, /<div\s+id="verse-announcer"\s+class="sr-only"\s+aria-live="polite"/i);
+  assert.match(html, /<button\s+type="button"\s+class="reference"\s+id="verse-action"/i);
+  assert.match(html, /aria-label="Current verse: Matthew 11:28/i);
+  assert.match(html, /<details\s+id="guide-details">/i);
+  assert.match(html, /<h2>Frequently Asked Questions<\/h2>/i);
+  assert.match(html, /<h3>What is News Dieppe\?<\/h3>/i);
+  assert.match(html, /<h3>Is News Dieppe completely free to use\?<\/h3>/i);
 });

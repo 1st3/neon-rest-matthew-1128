@@ -2,4 +2,33 @@ User-agent: *
 Allow: /
 Disallow: /verses.json
 
+# Explicit permissions for AI search and discovery bots
+User-agent: GPTBot
+Allow: /
+Disallow: /verses.json
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /verses.json
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /verses.json
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /verses.json
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /verses.json
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /verses.json
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /verses.json
+
 Sitemap: https://news.dieppe.app/sitemap.xml

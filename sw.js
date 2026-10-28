@@ -23,6 +23,8 @@ const PRECACHE_ASSETS = [
   './icon-512.png',
   './icon-maskable-192.png',
   './icon-maskable-512.png',
+  './llms.txt',
+  './llms-full.txt',
 ];
 
 async function getLastSync(cache) {

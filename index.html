@@ -43,24 +43,147 @@
   <link rel="stylesheet" href="./styles.css">
   <script src="./neon.js" defer></script>
 
-  <!-- Structured Data (JSON-LD) -->
+  <!-- Structured Data (JSON-LD Graph for Generative Search Engines) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "News Dieppe",
-    "url": "https://news.dieppe.app/",
-    "image": "https://news.dieppe.app/og-image.png",
-    "description": "Come to me, all you who are weary and burdened, and I will give you rest. Daily scripture and quotes rendered in bent glass neon on News Dieppe.",
-    "applicationCategory": "LifestyleApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" }
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://news.dieppe.app/#webapp",
+        "name": "News Dieppe",
+        "url": "https://news.dieppe.app/",
+        "image": "https://news.dieppe.app/og-image.png",
+        "description": "Come to me, all you who are weary and burdened, and I will give you rest. Daily scripture and quotes rendered in bent glass neon on News Dieppe.",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CAD",
+          "description": "100% free open-source progressive web application with zero subscription, ads, or tracking."
+        },
+        "featureList": [
+          "Single-stroke centerline vector typography in pure SVG",
+          "Multi-color bent glass neon simulation across amber, blue, white, and rose gas spectrums",
+          "Offline-ready Progressive Web App with weekly Service Worker synchronization",
+          "Automatic quote rotation on refresh and interactive keyboard/click cycling",
+          "Zero tracking cookies, zero external dependencies, zero privacy intrusion"
+        ],
+        "publisher": {
+          "@id": "https://news.dieppe.app/#organization"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://news.dieppe.app/#organization",
+        "name": "News Dieppe",
+        "url": "https://news.dieppe.app/",
+        "logo": "https://news.dieppe.app/icon-512.png"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://news.dieppe.app/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is News Dieppe?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "News Dieppe is a free, privacy-first Progressive Web App (PWA) displaying daily scripture verses and contemplative quotes rendered as realistic bent glass neon signs using pure SVG and CSS."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does the neon rendering work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every letter is constructed from custom single-stroke centerline vector glyphs (A–Z, 0–9, punctuation) in pure SVG, mimicking physical neon glass tubes without font files, bitmaps, or canvases. Layered SVG filters (feGaussianBlur) generate authentic core, halo, and spill glows."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is News Dieppe completely free to use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. News Dieppe is 100% free with no monthly subscription, no payment processing, no in-app purchases, and no advertisements. The software is open source under the MIT license."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can News Dieppe be used completely offline?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. News Dieppe installs as a Progressive Web App (PWA) and caches the entire app shell and verse catalog through its Service Worker (sw.js), functioning seamlessly with zero network connectivity."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I cycle or shuffle verses?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can advance to a new verse by clicking or tapping the verse reference button, pressing the Spacebar or 'N' key on a keyboard, or using the #shuffle URL hash."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does News Dieppe collect personal data or cookies?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. News Dieppe uses zero cookies, conducts no fingerprinting, and collects no personal data."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 </head>
 <body>
-  <main class="scene">
+  <a href="#main-content" class="skip-link">Skip to daily verse</a>
+
+  <aside class="guide-drawer" aria-label="About News Dieppe and Guide">
+    <details id="guide-details">
+      <summary aria-haspopup="dialog" aria-expanded="false" title="Open About &amp; FAQ">About &amp; FAQ</summary>
+      <div class="guide-content" role="region" aria-label="About News Dieppe and Frequently Asked Questions">
+        <h2>About News Dieppe</h2>
+        <p>News Dieppe is an open-source, privacy-first Progressive Web App (PWA) displaying daily scripture and contemplative quotes rendered as glowing, realistic bent glass neon signs.</p>
+        <p>No fonts, bitmaps, or pre-rendered canvases are used. Every character is drawn in pure SVG vector paths with physics-based glowing filters.</p>
+
+        <h2>Keyboard Shortcuts</h2>
+        <p><span class="shortcut-badge">Space</span> or <span class="shortcut-badge">N</span> : Next verse</p>
+        <p><span class="shortcut-badge">Esc</span> : Close this panel</p>
+
+        <h2>Frequently Asked Questions</h2>
+        <h3>What is News Dieppe?</h3>
+        <p>News Dieppe is a free, privacy-first web application presenting uplifting scripture and quotes in handcrafted SVG glass neon typography.</p>
+
+        <h3>How does the neon rendering work?</h3>
+        <p>Each glyph is defined by its physical centerline path, electrode boots, and glass curves. Real-time SVG filters simulate neon core ionization, halo bloom, and ambient light spill.</p>
+
+        <h3>Is News Dieppe completely free to use?</h3>
+        <p>Yes. 100% free with zero ads, zero subscriptions, and zero tracking. Licensed under the MIT License.</p>
+
+        <h3>Can News Dieppe work offline?</h3>
+        <p>Yes. The app shell and verse catalogs are precached by the Service Worker, giving you instant offline reflection anywhere.</p>
+
+        <h3>Does News Dieppe track me?</h3>
+        <p>No. News Dieppe does not use cookies, collect personal data, or run third-party tracking scripts.</p>
+
+        <div class="links-bar">
+          <a href="/llms.txt" target="_blank" rel="noopener">llms.txt</a>
+          <a href="/llms-full.txt" target="_blank" rel="noopener">llms-full.txt</a>
+          <a href="/sitemap.xml" target="_blank" rel="noopener">sitemap.xml</a>
+          <a href="https://github.com/1st3/neon-rest-matthew-1128" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </details>
+  </aside>
+
+  <main id="main-content" class="scene" aria-label="News Dieppe Daily Glass Neon Verse">
     <h1 class="sr-only">Come to me, all you who are weary and burdened, and I will give you rest. — Matthew 11:28</h1>
+    <div id="verse-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
     <svg id="neon" class="neon" viewBox="0 0 720 680" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="neon-title neon-desc">
       <title id="neon-title">Come to me, all you who are weary and burdened, and I will give you rest.</title>
       <desc id="neon-desc">Amber, blue, white, and rose glass neon tubing, with metal clips and looping return wires, mounted on a black shirt.</desc>
@@ -73,7 +196,7 @@
         <linearGradient id="clear-clip" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e2f0f5" stop-opacity=".62"/><stop offset=".3" stop-color="#bccdd4" stop-opacity=".05"/><stop offset=".7" stop-color="#10191e" stop-opacity=".85"/><stop offset="1" stop-color="#97b0bc" stop-opacity=".3"/></linearGradient>
       </defs>
     </svg>
-    <p class="reference">Matthew 11:28</p>
+    <button type="button" class="reference" id="verse-action" aria-label="Current verse: Matthew 11:28. Activate or press Space to cycle to next verse." title="Click or press Space for next verse">Matthew 11:28</button>
   </main>
 </body>
 </html>

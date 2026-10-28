@@ -510,10 +510,35 @@ function renderVerseToDom(verse, doc = globalThis.document) {
   if (refEl) {
     refEl.textContent = refText;
     refEl.setAttribute('data-verse-id', verse.id || 'custom');
+    refEl.setAttribute('aria-label', `Current verse: ${refText}. Activate or press Space to cycle to next verse.`);
+  }
+  const announcer = doc.querySelector('#verse-announcer');
+  if (announcer) {
+    announcer.textContent = `Now displaying: ${fullText} — ${refText}`;
   }
   doc.title = `Come to Me (${refText}): Glass Neon Verse | News Dieppe`;
 
   return { verse, rows };
+}
+
+function captureAiReferral(referrer = (typeof document !== 'undefined' ? document.referrer : '')) {
+  if (!referrer || typeof referrer !== 'string') return null;
+  try {
+    const raw = referrer.trim();
+    if (/android-app:\/\/com\.openai\.chatgpt/i.test(raw)) {
+      if (typeof sessionStorage !== 'undefined') sessionStorage.setItem('ai_referrer', 'chatgpt-app');
+      return 'chatgpt-app';
+    }
+    const url = raw.includes('://') ? new URL(raw) : new URL(`https://${raw}`);
+    const host = url.hostname.toLowerCase().replace(/^www\./, '');
+    if (/^(chatgpt\.com|perplexity\.ai|claude\.ai|search\.brave\.com)$/i.test(host)) {
+      if (typeof sessionStorage !== 'undefined' && !sessionStorage.getItem('ai_referrer')) {
+        sessionStorage.setItem('ai_referrer', host);
+      }
+      return host;
+    }
+  } catch {}
+  return null;
 }
 
 async function syncFromBackendIfDue(storage = globalThis.localStorage, force = false) {
@@ -566,6 +591,9 @@ function registerServiceWorker() {
 function initNeonScene() {
   if (typeof document === 'undefined' || !document.querySelector('#neon')) return;
 
+  // Capture first-touch AI search engine referral if present
+  captureAiReferral();
+
   // Ensure localStorage catalog is initialized immediately
   getCatalog(globalThis.localStorage);
 
@@ -573,14 +601,47 @@ function initNeonScene() {
   const { verse } = selectNextVerse(globalThis.localStorage, globalThis.location?.hash || '');
   renderVerseToDom(verse, document);
 
-  // Allow clicking the reference or changing hash to cycle through verses
+  function advanceVerse() {
+    const next = selectNextVerse(globalThis.localStorage, '#shuffle');
+    renderVerseToDom(next.verse, document);
+  }
+
+  // Allow clicking or activating the reference to cycle through verses
   const refEl = document.querySelector('.reference');
   if (refEl) {
     refEl.style.cursor = 'pointer';
-    refEl.title = 'Click for next verse';
-    refEl.addEventListener('click', () => {
-      const next = selectNextVerse(globalThis.localStorage, '#shuffle');
-      renderVerseToDom(next.verse, document);
+    refEl.title = 'Click or press Space for next verse';
+    refEl.addEventListener('click', advanceVerse);
+  }
+
+  // Global keyboard shortcuts for accessibility
+  window.addEventListener('keydown', (e) => {
+    const targetTag = e.target?.tagName;
+    if (targetTag === 'INPUT' || targetTag === 'TEXTAREA' || e.target?.isContentEditable) {
+      return;
+    }
+    if (e.key === ' ' || e.key === 'n' || e.key === 'N') {
+      if (e.key === ' ') e.preventDefault();
+      advanceVerse();
+    } else if (e.key === 'Escape') {
+      const details = document.querySelector('#guide-details');
+      if (details && details.open) {
+        details.open = false;
+        const summary = details.querySelector('summary');
+        if (summary) {
+          summary.setAttribute('aria-expanded', 'false');
+          summary.focus();
+        }
+      }
+    }
+  });
+
+  // Track guide details open state for screen readers
+  const guideDetails = document.querySelector('#guide-details');
+  if (guideDetails) {
+    const summary = guideDetails.querySelector('summary');
+    guideDetails.addEventListener('toggle', () => {
+      if (summary) summary.setAttribute('aria-expanded', String(guideDetails.open));
     });
   }
 
@@ -609,6 +670,7 @@ globalThis.NeonEngine = {
   selectNextVerse,
   renderVerseToDom,
   syncFromBackendIfDue,
+  captureAiReferral,
 };
 
 initNeonScene();
