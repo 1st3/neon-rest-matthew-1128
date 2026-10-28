@@ -1,6 +1,8 @@
-const CACHE_NAME = 'news-dieppe-v1';
+const CACHE_NAME = 'news-dieppe-v2';
 const META_SYNC_URL = '/__sw_meta/last_sync';
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+const BEACON_PATH = '/_t';
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
 
 const PRECACHE_ASSETS = [
   './',
@@ -85,6 +87,37 @@ async function syncVersesIfDue(force = false) {
   return { updated: false, response: cachedVerses, lastSync };
 }
 
+// A tagged page opened from the cache never reaches nginx, so report it with one tiny
+// request. Only utm_* tags already in the URL are sent: no cookies, no referrer, no ids.
+function utmBeaconUrl(url) {
+  if (!url.searchParams.get('utm_source')) return null;
+  const params = new URLSearchParams();
+  for (const key of UTM_KEYS) {
+    const value = url.searchParams.get(key);
+    if (value) params.set(key, value.slice(0, 100));
+  }
+  return `${BEACON_PATH}?${params}`;
+}
+
+function reportCachedVisit(event, request, url) {
+  if (request.mode !== 'navigate') return;
+  const beaconUrl = utmBeaconUrl(url);
+  if (!beaconUrl) return;
+  if (self.navigator && self.navigator.onLine === false) return;
+  try {
+    event.waitUntil(
+      fetch(beaconUrl, {
+        cache: 'no-store',
+        credentials: 'omit',
+        keepalive: true,
+        referrerPolicy: 'no-referrer',
+      }).catch(() => {})
+    );
+  } catch {
+    // Reporting must never break the page.
+  }
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
@@ -115,6 +148,9 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
+  // The visit report must always reach the server, never the cache.
+  if (url.pathname === BEACON_PATH) return;
+
   // Weekly sync policy for backend verses endpoint
   if (url.pathname.endsWith('/verses.json')) {
     event.respondWith(
@@ -135,7 +171,10 @@ self.addEventListener('fetch', (event) => {
     (async () => {
       const cache = await caches.open(CACHE_NAME);
       const cached = await cache.match(request, { ignoreSearch: true });
-      if (cached) return cached;
+      if (cached) {
+        reportCachedVisit(event, request, url);
+        return cached;
+      }
 
       try {
         const networkResp = await fetch(request);

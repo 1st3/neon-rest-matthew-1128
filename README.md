@@ -40,4 +40,12 @@ MIT
 
 Email-signature links carry `?utm_source=sig&utm_medium=email`. nginx on rv415 writes one JSON line per tagged page hit to `/var/log/nginx/utm-traffic.json` (no IP addresses). The config is `ops/rv415-utm-traffic.conf`, installed as `/etc/nginx/conf.d/00-utm-traffic.conf`. This site has no `access_log` of its own, so it inherits the shared one. `ops/` is not deployed to the web root.
 
-Note: `sw.js` serves pages cache-first with `ignoreSearch`, so a visitor who opened the installed PWA from cache may not reach nginx and will not be logged.
+### Cached visits (`/_t` report)
+
+`sw.js` serves pages cache-first with `ignoreSearch`, so a repeat visitor or an installed-app user opens the page from the cache and nginx never sees it. To count those visits, the service worker sends one small request when it answers a page navigation from the cache and the URL has a `utm_source`:
+
+- `GET /_t?utm_source=...&utm_medium=...` with `cache: 'no-store'`, no cookies, no referrer. Only the `utm_*` tags already in the URL are sent.
+- Network-served visits are not reported, because nginx already logged them. Visits without `utm_source` send nothing. Offline, or any error, is ignored.
+- nginx answers `/_t` with `204`. The block is in `ops/rv415-news-dieppe-beacon.snippet` and goes inside the `news.dieppe.app` server block of `/etc/nginx/conf.d/sites.conf` (manual, `ops/` is not deployed). It is needed because a plain 404 loses the query string and would not be logged.
+- In the admin Traffic panel, `/_t` counts as a visit to the home page.
+- Test: `node --test` (`test/sw-beacon.test.js`).
