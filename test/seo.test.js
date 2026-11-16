@@ -31,7 +31,6 @@ test('Platform name is News Dieppe everywhere (never Neon Rest)', async () => {
     'index.html',
     '404.html',
     'site.webmanifest',
-    'manifest.webmanifest',
     'neon.js',
     'sw.js',
     'README.md',
@@ -166,8 +165,31 @@ test('Semantic landmarks: exactly one <h1>, <main>, and crawlable quote copy in 
   assert.match(html, /Come to me, all you who are weary and burdened/i);
 });
 
-test('LCP background image is preloaded in <head>', () => {
-  assert.match(head, /<link\s+rel="preload"\s+as="image"\s+href="\/blank-shirt\.png"\s*\/?>/i);
+test('LCP backdrop ships as WebP with a JPEG fallback and stays inside the size budget', async () => {
+  assert.match(
+    head,
+    /<link\s+rel="preload"\s+as="image"\s+href="\/blank-shirt\.webp"[^>]*>/i,
+    'the WebP backdrop must be preloaded in <head>'
+  );
+
+  const css = await readFile(join(ROOT, 'styles.css'), 'utf8');
+  assert.match(css, /image-set\(/, 'styles.css must serve the backdrop through image-set()');
+  assert.match(css, /url\('\.\/blank-shirt\.jpg'\)/, 'styles.css must keep a non-WebP fallback');
+
+  const webp = await readFile(join(ROOT, 'blank-shirt.webp'));
+  assert.ok(webp.length < 150 * 1024, `blank-shirt.webp is ${webp.length} bytes (must stay under 150 KB)`);
+  assert.equal(webp.subarray(0, 4).toString('ascii'), 'RIFF');
+  assert.equal(webp.subarray(8, 12).toString('ascii'), 'WEBP');
+
+  const jpeg = await readFile(join(ROOT, 'blank-shirt.jpg'));
+  assert.ok(jpeg.length < 250 * 1024, `blank-shirt.jpg is ${jpeg.length} bytes (must stay under 250 KB)`);
+  assert.deepEqual([...jpeg.subarray(0, 2)], [0xff, 0xd8], 'not a JPEG');
+
+  // The full-size source photograph must never reach the web root.
+  await assert.rejects(
+    readFile(join(ROOT, 'blank-shirt.png')),
+    'blank-shirt.png must not sit in the web root; the source belongs in art/'
+  );
 });
 
 test('robots.txt, sitemap.xml, and 404.html are present and well-formed', async () => {

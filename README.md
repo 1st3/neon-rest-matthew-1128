@@ -13,6 +13,8 @@ A pure SVG, CSS, and vanilla JavaScript animated neon typography Progressive Web
 - **Flexible Single-Stroke Vector Lettering**: Complete custom centerline glyph geometry (`A–Z`, `0–9`, and punctuation in `neon.js`) tracing the true centerline of bent glass neon tubes. No fonts, bitmap canvases, or photos are used for the letters.
 - **Per-Refresh Quote Rotation (`localStorage`)**: Stores all verses in `localStorage` (`neon_verses_catalog`) and rotates to a new quote/verse on every page refresh (or when clicking the verse reference / using the `#shuffle` app shortcut).
 - **Weekly Service Worker Sync (`sw.js`)**: Precaches the entire app shell for instant offline access and updates the verse catalog from the backend (`./verses.json`) only once a week (`7 days`).
+- **Build-Stamped Cache (`sw.js`)**: The cache name carries the deploying commit SHA, so every release replaces the precached shell instead of leaving returning visitors and installed-app users on a stale build.
+- **Lightweight Backdrop**: The hero photograph ships as a 77 KB WebP (with a 143 KB JPEG fallback), not a 1.9 MB PNG. The source image lives in `art/blank-shirt.png` and is never deployed.
 - **Standards-Compliant PWA (`site.webmanifest`)**: Complete vector-first icon suite (`favicon.svg`, multi-frame `favicon.ico`, 16/32/48/180/192/512 PNGs, 80%-safe-zone maskable icons, and wide/narrow install screenshots).
 - **Generative Engine Optimization (GEO) & Accessibility**: Machine-readable `/llms.txt` and `/llms-full.txt` standards, full Schema.org JSON-LD `@graph` (`WebApplication`, `Organization`, `FAQPage`), explicit AI crawler permissions in `robots.txt`, screen reader live regions (`aria-live`), skip link, and keyboard navigation (`Space`/`N`/`Esc`).
 - **Zero Dependencies**: Vanilla HTML5, CSS3, and JavaScript with zero runtime or test dependencies.
@@ -32,6 +34,9 @@ News Dieppe provides first-class machine-readable documentation and discovery en
 # Run unit & manifest verification tests
 npm test
 
+# Regenerate the neon.js verse seed from verses.json after editing the catalog
+npm run sync:catalog
+
 # Regenerate icons from the vector mark (requires rsvg-convert)
 npm run icons
 
@@ -41,6 +46,12 @@ npm run screenshots
 # Audit manifest via Chrome DevTools Protocol (Page.getAppManifest)
 npm run verify-manifest
 ```
+
+## Verse Catalog: One Source of Truth
+
+`verses.json` is the canonical catalog — it is what the Service Worker syncs weekly and what the admin tooling edits. `neon.js` carries a synchronous copy (`DEFAULT_VERSES`) so the very first paint can render a verse without waiting on the network.
+
+Edit `verses.json`, then run `npm run sync:catalog` to regenerate the seed. `test/catalog.test.js` fails the build if the two ever drift apart, which previously left the same verse reading one way on the first visit and another way after the weekly sync.
 
 ## License
 

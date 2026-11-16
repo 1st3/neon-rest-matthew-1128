@@ -59,7 +59,7 @@ Four authentic neon sign colors are modeled:
 
 ### 3.1 Caching Strategy
 The Service Worker (`sw.js`) employs a **Cache-First (Stale-While-Revalidate with Weekly Synchronization)** strategy:
-- **Precaching**: The complete app shell (`index.html`, `styles.css`, `neon.js`, `verses.json`, `blank-shirt.png`, vector and raster icons, and manifests) is cached during the `install` phase.
+- **Precaching**: The complete app shell (`index.html`, `styles.css`, `neon.js`, `verses.json`, `blank-shirt.webp`, vector and raster icons, and the web app manifest) is cached during the `install` phase under a cache name stamped with the deploying commit, so each release replaces the previous shell instead of leaving returning visitors on a stale build.
 - **Navigation Fallback**: If network is unavailable, navigation requests instantly resolve to the cached shell.
 - **Offline Catalog**: Verses are stored in client-side `localStorage` (`neon_verses_catalog`), guaranteeing full functionality when completely disconnected.
 

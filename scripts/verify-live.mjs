@@ -4,7 +4,7 @@
 //  2. SEO & HTTP hygiene: 404 on unknown routes (GET & HEAD), X-Robots-Tag on /verses.json, no X-Robots-Tag on /, crawler UAs (Googlebot, facebookexternalhit, LinkedInBot, Twitterbot, WhatsApp)
 //  3. Chrome DevTools Page.getAppManifest reports 0 errors
 //  4. localStorage stores all verses and every page refresh displays a new verse
-//  5. Service Worker activates, caches app shell ('news-dieppe-v1'), enforces 7-day sync window, and serves offline
+//  5. Service Worker activates, caches the app shell under its build-stamped cache name, enforces 7-day sync window, and serves offline
 import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
 import { withChrome } from './cdp.mjs';
@@ -22,7 +22,8 @@ const ENDPOINTS = [
   ['/sitemap.xml', /^(application|text)\/xml/],
   ['/og-image.png', /^image\/png/],
   ['/site.webmanifest', /^application\/manifest\+json/],
-  ['/manifest.webmanifest', /^application\/manifest\+json/],
+  ['/blank-shirt.webp', /^image\/webp/],
+  ['/blank-shirt.jpg', /^image\/jpeg/],
   ['/favicon.svg', /^image\/svg\+xml/],
   ['/favicon.ico', /^image\/(x-icon|vnd\.microsoft\.icon)/],
   ['/favicon-16x16.png', /^image\/png/],
@@ -146,14 +147,16 @@ await withChrome(async ({ send, navigate }) => {
   const { result: swStateRaw } = await send('Runtime.evaluate', {
     expression: `(async () => {
       const reg = await navigator.serviceWorker.ready;
-      const hasCache = await caches.has('news-dieppe-v1');
-      const cache = await caches.open('news-dieppe-v1');
-      const meta = await cache.match('/__sw_meta/last_sync');
+      const cacheNames = await caches.keys();
+      const name = cacheNames.find((n) => n.startsWith('news-dieppe-'));
+      const cache = name ? await caches.open(name) : null;
+      const meta = cache ? await cache.match('/__sw_meta/last_sync') : null;
       const lastSyncText = meta ? await meta.text() : '0';
       return JSON.stringify({
         active: Boolean(reg.active),
         state: reg.active?.state,
-        hasCache,
+        cacheName: name ?? null,
+        cacheNames,
         swLastSync: Number(lastSyncText)
       });
     })()`,
@@ -162,9 +165,14 @@ await withChrome(async ({ send, navigate }) => {
   });
   const swState = JSON.parse(swStateRaw.value);
   assert.equal(swState.active, true, 'Service Worker should be active');
-  assert.equal(swState.hasCache, true, 'Cache news-dieppe-v1 should exist');
+  assert.ok(swState.cacheName, 'no news-dieppe-* cache should exist');
+  assert.equal(
+    swState.cacheNames.filter((n) => n.startsWith('news-dieppe-')).length,
+    1,
+    `exactly one app cache should exist, found: ${swState.cacheNames.join(', ')}`
+  );
   assert.ok(swState.swLastSync > 0, 'Service Worker weekly sync timestamp should be recorded');
-  console.log(`✔ Service Worker active (${swState.state}), cache='news-dieppe-v1' ready, lastSync=${new Date(swState.swLastSync).toISOString()}`);
+  console.log(`✔ Service Worker active (${swState.state}), cache='${swState.cacheName}' ready, lastSync=${new Date(swState.swLastSync).toISOString()}`);
 
   // 5. Emulate complete offline mode and verify the app still loads & rotates verses offline!
   await send('Network.emulateNetworkConditions', {

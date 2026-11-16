@@ -80,12 +80,12 @@ const DEFAULT_VERSES = [
     reference: 'Matthew 11:28',
     text: 'Come to me, all you who are weary and burdened, and I will give you rest.',
     lines: [
-      { text: 'COME TO ME,', y: 39, width: 606, color: 'amber', delay: 0 },
-      { text: 'ALL YOU WHO', y: 151, width: 557, color: 'blue', delay: 0.18 },
-      { text: 'ARE WEARY', y: 250, width: 495, color: 'blue', delay: 0.32 },
-      { text: 'AND BURDENED,', y: 345, width: 596, color: 'white', delay: 0.48 },
-      { text: 'AND I WILL', y: 447, width: 555, color: 'rose', delay: 0.7 },
-      { text: 'GIVE YOU REST.', y: 554, width: 580, color: 'rose', delay: 0.84 },
+      { text: 'COME TO ME,', width: 606, color: 'amber' },
+      { text: 'ALL YOU WHO', width: 557, color: 'blue' },
+      { text: 'ARE WEARY', width: 495, color: 'blue' },
+      { text: 'AND BURDENED,', width: 596, color: 'white' },
+      { text: 'AND I WILL', width: 555, color: 'rose' },
+      { text: 'GIVE YOU REST.', width: 580, color: 'rose' },
     ],
   },
   {
@@ -104,7 +104,7 @@ const DEFAULT_VERSES = [
   {
     id: 'john-14-27',
     reference: 'John 14:27',
-    text: 'Peace I leave with you; my peace I give you. Do not be afraid.',
+    text: 'Peace I leave with you; my peace I give you. Do not let your hearts be troubled.',
     lines: [
       { text: 'PEACE I LEAVE', width: 580, color: 'amber' },
       { text: 'WITH YOU;', width: 480, color: 'blue' },
@@ -117,7 +117,7 @@ const DEFAULT_VERSES = [
   {
     id: 'isaiah-40-31',
     reference: 'Isaiah 40:31',
-    text: 'Those who hope in the Lord will renew their strength. They will soar like eagles.',
+    text: 'Those who hope in the Lord will renew their strength. They will soar on wings like eagles.',
     lines: [
       { text: 'THOSE WHO HOPE', width: 600, color: 'amber' },
       { text: 'IN THE LORD', width: 535, color: 'blue' },
@@ -130,7 +130,7 @@ const DEFAULT_VERSES = [
   {
     id: 'psalm-46-10',
     reference: 'Psalm 46:10',
-    text: 'Be still, and know that I am God; I will be exalted in the earth.',
+    text: 'Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth.',
     lines: [
       { text: 'BE STILL,', width: 490, color: 'amber' },
       { text: 'AND KNOW', width: 495, color: 'amber' },
@@ -143,7 +143,7 @@ const DEFAULT_VERSES = [
   {
     id: 'philippians-4-6-7',
     reference: 'Philippians 4:6-7',
-    text: 'Be anxious for nothing, and the peace of God will guard your hearts.',
+    text: 'Do not be anxious about anything, and the peace of God will guard your hearts and your minds.',
     lines: [
       { text: 'BE ANXIOUS', width: 530, color: 'amber' },
       { text: 'FOR NOTHING,', width: 565, color: 'blue' },
@@ -156,7 +156,7 @@ const DEFAULT_VERSES = [
   {
     id: 'lamentations-3-22-23',
     reference: 'Lamentations 3:22-23',
-    text: 'His mercies never come to an end; they are new every morning, great is thy faith.',
+    text: 'Because of the Lord\'s great love we are not consumed, for his compassions never fail. They are new every morning.',
     lines: [
       { text: 'HIS MERCIES', width: 545, color: 'amber' },
       { text: 'NEVER COME', width: 545, color: 'blue' },
@@ -169,7 +169,7 @@ const DEFAULT_VERSES = [
   {
     id: 'joshua-1-9',
     reference: 'Joshua 1:9',
-    text: 'Be strong and courageous. Do not fear; the Lord your God is with you wherever you go.',
+    text: 'Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.',
     lines: [
       { text: 'BE STRONG AND', width: 580, color: 'amber' },
       { text: 'COURAGEOUS.', width: 555, color: 'amber' },
@@ -182,7 +182,7 @@ const DEFAULT_VERSES = [
   {
     id: 'proverbs-3-5-6',
     reference: 'Proverbs 3:5-6',
-    text: 'Trust in the Lord with all your heart; lean not on your own ways, he will guide you.',
+    text: 'Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.',
     lines: [
       { text: 'TRUST IN THE', width: 555, color: 'amber' },
       { text: 'LORD WITH ALL', width: 580, color: 'blue' },
@@ -195,7 +195,7 @@ const DEFAULT_VERSES = [
   {
     id: 'romans-8-38-39',
     reference: 'Romans 8:38-39',
-    text: 'Neither death nor life, nor things to come, can separate us from the love of God.',
+    text: 'Neither death nor life, neither present nor future, will be able to separate us from the love of God.',
     lines: [
       { text: 'NEITHER DEATH', width: 585, color: 'amber' },
       { text: 'NOR LIFE,', width: 470, color: 'blue' },
@@ -208,7 +208,7 @@ const DEFAULT_VERSES = [
   {
     id: 'matthew-5-14',
     reference: 'Matthew 5:14-16',
-    text: 'You are the light of the world. A city on a hill cannot hide; let it shine.',
+    text: 'You are the light of the world. A town built on a hill cannot be hidden. Let your light shine before others.',
     lines: [
       { text: 'YOU ARE THE', width: 545, color: 'amber' },
       { text: 'LIGHT OF', width: 465, color: 'amber' },
@@ -221,7 +221,7 @@ const DEFAULT_VERSES = [
   {
     id: 'psalm-121-1-2',
     reference: 'Psalm 121:1-2',
-    text: 'I lift up my eyes to the hills. Where does my help come from? From the Lord, Maker of heaven.',
+    text: 'I lift up my eyes to the mountains—where does my help come from? My help comes from the Lord, the Maker of heaven and earth.',
     lines: [
       { text: 'I LIFT UP MY', width: 540, color: 'amber' },
       { text: 'EYES TO THE HILLS.', width: 605, color: 'blue' },
@@ -374,6 +374,15 @@ function selectNextVerse(storage = globalThis.localStorage, requestedHash = '') 
   return { verse: catalog[nextIndex], index: nextIndex, total: catalog.length };
 }
 
+// The canonical verse keeps the SEO-tuned title; every other verse gets an
+// accurate one instead of borrowing the Matthew 11:28 wording.
+function buildDocumentTitle(reference) {
+  const ref = String(reference || 'Matthew 11:28');
+  return ref === 'Matthew 11:28'
+    ? `Come to Me (${ref}): Glass Neon Verse | News Dieppe`
+    : `${ref}: Glass Neon Verse | News Dieppe`;
+}
+
 function renderVerseToDom(verse, doc = globalThis.document) {
   if (!doc) return null;
   const svg = doc.querySelector('#neon');
@@ -516,29 +525,11 @@ function renderVerseToDom(verse, doc = globalThis.document) {
   if (announcer) {
     announcer.textContent = `Now displaying: ${fullText} — ${refText}`;
   }
-  doc.title = `Come to Me (${refText}): Glass Neon Verse | News Dieppe`;
+  // The canonical verse keeps the SEO-tuned title; every other verse gets an
+  // accurate one instead of borrowing the Matthew 11:28 wording.
+  doc.title = buildDocumentTitle(refText);
 
   return { verse, rows };
-}
-
-function captureAiReferral(referrer = (typeof document !== 'undefined' ? document.referrer : '')) {
-  if (!referrer || typeof referrer !== 'string') return null;
-  try {
-    const raw = referrer.trim();
-    if (/android-app:\/\/com\.openai\.chatgpt/i.test(raw)) {
-      if (typeof sessionStorage !== 'undefined') sessionStorage.setItem('ai_referrer', 'chatgpt-app');
-      return 'chatgpt-app';
-    }
-    const url = raw.includes('://') ? new URL(raw) : new URL(`https://${raw}`);
-    const host = url.hostname.toLowerCase().replace(/^www\./, '');
-    if (/^(chatgpt\.com|perplexity\.ai|claude\.ai|search\.brave\.com)$/i.test(host)) {
-      if (typeof sessionStorage !== 'undefined' && !sessionStorage.getItem('ai_referrer')) {
-        sessionStorage.setItem('ai_referrer', host);
-      }
-      return host;
-    }
-  } catch {}
-  return null;
 }
 
 async function syncFromBackendIfDue(storage = globalThis.localStorage, force = false) {
@@ -572,6 +563,21 @@ function registerServiceWorker() {
     }
   });
 
+  // A new deploy bumps the cached build id, so the fresh worker takes control of
+  // this page. Reload once to pick up the new app shell instead of leaving the
+  // visitor on the version that was already in the cache.
+  //
+  // Only reload when this page was already controlled by a worker. On a first
+  // visit the worker claims control for the first time, and reloading there would
+  // waste a request and advance the verse twice.
+  const hadController = Boolean(navigator.serviceWorker.controller);
+  let reloadingForUpdate = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController || reloadingForUpdate) return;
+    reloadingForUpdate = true;
+    globalThis.location?.reload();
+  });
+
   window.addEventListener('load', async () => {
     try {
       const reg = await navigator.serviceWorker.register('./sw.js', { scope: './' });
@@ -590,9 +596,6 @@ function registerServiceWorker() {
 
 function initNeonScene() {
   if (typeof document === 'undefined' || !document.querySelector('#neon')) return;
-
-  // Capture first-touch AI search engine referral if present
-  captureAiReferral();
 
   // Ensure localStorage catalog is initialized immediately
   getCatalog(globalThis.localStorage);
@@ -669,8 +672,8 @@ globalThis.NeonEngine = {
   saveCatalog,
   selectNextVerse,
   renderVerseToDom,
+  buildDocumentTitle,
   syncFromBackendIfDue,
-  captureAiReferral,
 };
 
 initNeonScene();

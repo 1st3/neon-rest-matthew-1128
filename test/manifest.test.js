@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { inflateSync } from 'node:zlib';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -94,10 +94,14 @@ const loadManifest = async (name = 'site.webmanifest') =>
 const loadPng = async (relPath) =>
   decodePng(await readFile(join(ROOT, relPath.replace(/^\.?\//, ''))));
 
-test('site.webmanifest and manifest.webmanifest exist and are identical', async () => {
+test('exactly one web manifest is shipped, and it is valid JSON', async () => {
+  const manifestFiles = (await readdir(ROOT)).filter((f) => f.endsWith('.webmanifest'));
+  assert.deepEqual(
+    manifestFiles,
+    ['site.webmanifest'],
+    `expected a single manifest, found: ${manifestFiles.join(', ')}`
+  );
   const a = await readFile(join(ROOT, 'site.webmanifest'), 'utf8');
-  const b = await readFile(join(ROOT, 'manifest.webmanifest'), 'utf8');
-  assert.equal(a, b);
   JSON.parse(a);
 });
 
