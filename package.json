@@ -6,6 +6,7 @@
   "description": "News Dieppe: Animated vector glass neon scripture and quotes PWA with offline support, weekly Service Worker sync, and full SEO & Open Graph support.",
   "scripts": {
     "test": "node --test",
+    "sync:catalog": "node scripts/sync-catalog.mjs",
     "icons": "python3 art/make_icons.py",
     "screenshots": "node scripts/capture-screenshots.mjs",
     "verify-manifest": "node scripts/verify-manifest.mjs"

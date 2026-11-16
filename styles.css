@@ -128,7 +128,17 @@ body { color:#fff; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe
   min-height: 100svh;
   overflow: hidden;
   isolation: isolate;
-  background: #070a0d url('./blank-shirt.png') 50% 50%/cover no-repeat;
+  /* JPEG is the universal fallback; the @supports block below upgrades to WebP.
+     The source photograph lives in art/blank-shirt.png and is never deployed. */
+  background: #070a0d url('./blank-shirt.jpg') 50% 50%/cover no-repeat;
+}
+@supports (background-image: image-set(url('./blank-shirt.webp') type('image/webp'))) {
+  .scene {
+    background-image: image-set(
+      url('./blank-shirt.webp') type('image/webp'),
+      url('./blank-shirt.jpg') type('image/jpeg')
+    );
+  }
 }
 .scene::after {
   content: '';

@@ -1,4 +1,9 @@
-const CACHE_NAME = 'news-dieppe-v2';
+// BUILD_ID is stamped with the deploying commit SHA by .github/workflows/deploy.yml.
+// Every deploy changes it, so CACHE_NAME changes too, the activate handler drops the
+// previous cache, and returning visitors are moved onto the new build instead of
+// being pinned to a stale precached app shell forever.
+const BUILD_ID = 'dev';
+const CACHE_NAME = `news-dieppe-${BUILD_ID}`;
 const META_SYNC_URL = '/__sw_meta/last_sync';
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 const BEACON_PATH = '/_t';
@@ -10,9 +15,8 @@ const PRECACHE_ASSETS = [
   './styles.css',
   './neon.js',
   './verses.json',
-  './blank-shirt.png',
+  './blank-shirt.webp',
   './site.webmanifest',
-  './manifest.webmanifest',
   './favicon.svg',
   './favicon.ico',
   './favicon-16x16.png',

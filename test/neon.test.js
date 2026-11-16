@@ -18,7 +18,7 @@ const {
   saveCatalog,
   selectNextVerse,
   syncFromBackendIfDue,
-  captureAiReferral,
+  buildDocumentTitle,
 } = globalThis.NeonEngine;
 
 function createMockStorage() {
@@ -138,13 +138,17 @@ test('weekly sync policy only fetches from backend when 7 days have elapsed', as
   }
 });
 
-test('captureAiReferral detects and normalizes AI search engine referrers', () => {
-  assert.equal(captureAiReferral('https://chatgpt.com/'), 'chatgpt.com');
-  assert.equal(captureAiReferral('https://www.perplexity.ai/search?q=news+dieppe'), 'perplexity.ai');
-  assert.equal(captureAiReferral('https://claude.ai/chat/123'), 'claude.ai');
-  assert.equal(captureAiReferral('https://search.brave.com/search?q=glass+neon'), 'search.brave.com');
-  assert.equal(captureAiReferral('android-app://com.openai.chatgpt'), 'chatgpt-app');
-  assert.equal(captureAiReferral('https://example.com/'), null);
-  assert.equal(captureAiReferral(''), null);
-  assert.equal(captureAiReferral(null), null);
+test('the document title names the verse actually on screen', () => {
+  assert.equal(
+    buildDocumentTitle('Matthew 11:28'),
+    'Come to Me (Matthew 11:28): Glass Neon Verse | News Dieppe',
+    'the canonical verse keeps the SEO-tuned title'
+  );
+  assert.equal(
+    buildDocumentTitle('Psalm 23:1-3'),
+    'Psalm 23:1-3: Glass Neon Verse | News Dieppe',
+    'other verses must not borrow the Matthew 11:28 wording'
+  );
+  assert.match(buildDocumentTitle('Psalm 23:1-3'), /\|\s*News Dieppe$/);
+  assert.match(buildDocumentTitle(''), /Matthew 11:28/);
 });
