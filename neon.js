@@ -626,27 +626,8 @@ function initNeonScene() {
     if (e.key === ' ' || e.key === 'n' || e.key === 'N') {
       if (e.key === ' ') e.preventDefault();
       advanceVerse();
-    } else if (e.key === 'Escape') {
-      const details = document.querySelector('#guide-details');
-      if (details && details.open) {
-        details.open = false;
-        const summary = details.querySelector('summary');
-        if (summary) {
-          summary.setAttribute('aria-expanded', 'false');
-          summary.focus();
-        }
-      }
     }
   });
-
-  // Track guide details open state for screen readers
-  const guideDetails = document.querySelector('#guide-details');
-  if (guideDetails) {
-    const summary = guideDetails.querySelector('summary');
-    guideDetails.addEventListener('toggle', () => {
-      if (summary) summary.setAttribute('aria-expanded', String(guideDetails.open));
-    });
-  }
 
   window.addEventListener('hashchange', () => {
     const next = selectNextVerse(globalThis.localStorage, globalThis.location?.hash || '');
