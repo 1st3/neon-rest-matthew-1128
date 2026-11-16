@@ -264,8 +264,18 @@ test('Accessibility & reachability features are wired in initial HTML', () => {
   assert.match(html, /<div\s+id="verse-announcer"\s+class="sr-only"\s+aria-live="polite"/i);
   assert.match(html, /<button\s+type="button"\s+class="reference"\s+id="verse-action"/i);
   assert.match(html, /aria-label="Current verse: Matthew 11:28/i);
-  assert.match(html, /<details\s+id="guide-details">/i);
-  assert.match(html, /<h2>Frequently Asked Questions<\/h2>/i);
-  assert.match(html, /<h3>What is News Dieppe\?<\/h3>/i);
-  assert.match(html, /<h3>Is News Dieppe completely free to use\?<\/h3>/i);
+});
+
+test('About & FAQ drawer UI is gone from the page', async () => {
+  assert.doesNotMatch(html, /guide-drawer/i, 'index.html still has the guide drawer');
+  assert.doesNotMatch(html, /guide-details/i, 'index.html still has the guide details element');
+  assert.doesNotMatch(html, /guide-content/i, 'index.html still has the guide panel');
+  assert.doesNotMatch(html, /About &amp; FAQ/i, 'index.html still shows the About & FAQ pill');
+
+  const css = await readFile(join(ROOT, 'styles.css'), 'utf8');
+  assert.doesNotMatch(css, /\.guide-drawer/i, 'styles.css still styles the guide drawer');
+  assert.doesNotMatch(css, /\.guide-content/i, 'styles.css still styles the guide panel');
+
+  const js = await readFile(join(ROOT, 'neon.js'), 'utf8');
+  assert.doesNotMatch(js, /guide-details/i, 'neon.js still wires the guide drawer');
 });

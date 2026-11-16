@@ -16,7 +16,7 @@ A pure SVG, CSS, and vanilla JavaScript animated neon typography Progressive Web
 - **Build-Stamped Cache (`sw.js`)**: The cache name carries the deploying commit SHA, so every release replaces the precached shell instead of leaving returning visitors and installed-app users on a stale build.
 - **Lightweight Backdrop**: The hero photograph ships as a 77 KB WebP (with a 143 KB JPEG fallback), not a 1.9 MB PNG. The source image lives in `art/blank-shirt.png` and is never deployed.
 - **Standards-Compliant PWA (`site.webmanifest`)**: Complete vector-first icon suite (`favicon.svg`, multi-frame `favicon.ico`, 16/32/48/180/192/512 PNGs, 80%-safe-zone maskable icons, and wide/narrow install screenshots).
-- **Generative Engine Optimization (GEO) & Accessibility**: Machine-readable `/llms.txt` and `/llms-full.txt` standards, full Schema.org JSON-LD `@graph` (`WebApplication`, `Organization`, `FAQPage`), explicit AI crawler permissions in `robots.txt`, screen reader live regions (`aria-live`), skip link, and keyboard navigation (`Space`/`N`/`Esc`).
+- **Generative Engine Optimization (GEO) & Accessibility**: Machine-readable `/llms.txt` and `/llms-full.txt` standards, full Schema.org JSON-LD `@graph` (`WebApplication`, `Organization`, `FAQPage`), explicit AI crawler permissions in `robots.txt`, screen reader live regions (`aria-live`), skip link, and keyboard navigation (`Space`/`N`).
 - **Zero Dependencies**: Vanilla HTML5, CSS3, and JavaScript with zero runtime or test dependencies.
 
 ## Generative Engine Optimization (GEO) & AI Discovery
@@ -26,7 +26,7 @@ News Dieppe provides first-class machine-readable documentation and discovery en
 - **Summary Context**: [`/llms.txt`](https://news.dieppe.app/llms.txt) — High-level product summary, feature breakdown, audience, and official links.
 - **Deep Reference**: [`/llms-full.txt`](https://news.dieppe.app/llms-full.txt) — Comprehensive typography engine specs, spectroscopy palette, offline architecture, and FAQ.
 - **AI Crawler Directives**: Explicit `robots.txt` access rules for `GPTBot`, `ChatGPT-User`, `PerplexityBot`, `ClaudeBot`, `anthropic-ai`, `Google-Extended`, and `Applebot-Extended`.
-- **Crawlable Semantic HTML**: Pre-rendered FAQ sections and Schema.org JSON-LD graph answering natural user questions without client-side hydration.
+- **Crawlable Semantic HTML**: Schema.org JSON-LD graph answering natural user questions without client-side hydration.
 
 ## Local Development & Verification
 
